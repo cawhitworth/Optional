@@ -17,9 +17,9 @@ concrete.IsPresent;                      // true
 absent.IsPresent;                        // false
 
 var c = concrete.Map( i => i * 2 );      // c == Optional.Of(20)
-var d = absent.Map( (int i) => i * 2) ;  // d == Optional.Absent (Optional.AbsentOf<int>)
+var d = absent.Map( (int i) => i * 2 );  // d == Optional.Absent (Optional.AbsentOf<int>)
 
-var e = concrete.FlatMap( i => Optional.Of( String.Format("It is {0}", i) );
+var e = concrete.FlatMap( i => Optional.Of( String.Format("It is {0}", i) ) ) ;
                                          // e = Optional.Of("It is 20")
 
 var f = concrete.Match(
