@@ -10,27 +10,27 @@ Use
 
 ```csharp
 
-var a = Optional.Of(10);
-var b = Optional.Absent;
+var opt = Optional.Of(10);
+var abs = Optional.Absent;
 
-a.IsPresent;                        // true
-b.IsPresent;                        // false
+opt.IsPresent;                        // true
+abs.IsPresent;                        // false
 
-var c = a.Map( i => i * 2 );        // c == Optional.Of(20)
-var d = b.Map( (int i) => i * 2) ;  // d == Optional.Absent (Optional.AbsentOf<int>)
+var c = opt.Map( i => i * 2 );        // c == Optional.Of(20)
+var d = abs.Map( (int i) => i * 2) ;  // d == Optional.Absent (Optional.AbsentOf<int>)
 
-var e = c.FlatMap( i => Optional.Of( String.Format("It is {0}", i) );
-                                    // e = Optional.Of("It is 20")
+var e = opt.FlatMap( i => Optional.Of( String.Format("It is {0}", i) );
+                                      // e = Optional.Of("It is 20")
 
-var f = a.Match(
+var f = opt.Match(
     i => "Woot!",
     () => "Aww"
-);                                  // f == "Woot!"
+);                                    // f == "Woot!"
 
-var g = b.Match(
+var g = abs.Match(
     i => "Woot!",
     () => "Aww"
-);                                  // g == "Aww"
+);                                    // g == "Aww"
 
 ```
 
