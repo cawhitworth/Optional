@@ -10,27 +10,27 @@ Use
 
 ```csharp
 
-var opt = Optional.Of(10);
-var abs = Optional.Absent;
+var concrete = Optional.Of(10);
+var absent = Optional.Absent;
 
-opt.IsPresent;                        // true
-abs.IsPresent;                        // false
+concrete.IsPresent;                      // true
+absent.IsPresent;                        // false
 
-var c = opt.Map( i => i * 2 );        // c == Optional.Of(20)
-var d = abs.Map( (int i) => i * 2) ;  // d == Optional.Absent (Optional.AbsentOf<int>)
+var c = concrete.Map( i => i * 2 );      // c == Optional.Of(20)
+var d = absent.Map( (int i) => i * 2) ;  // d == Optional.Absent (Optional.AbsentOf<int>)
 
-var e = opt.FlatMap( i => Optional.Of( String.Format("It is {0}", i) );
-                                      // e = Optional.Of("It is 20")
+var e = concrete.FlatMap( i => Optional.Of( String.Format("It is {0}", i) );
+                                         // e = Optional.Of("It is 20")
 
-var f = opt.Match(
+var f = concrete.Match(
     i => "Woot!",
     () => "Aww"
-);                                    // f == "Woot!"
+);                                       // f == "Woot!"
 
-var g = abs.Match(
+var g = absent.Match(
     i => "Woot!",
     () => "Aww"
-);                                    // g == "Aww"
+);                                       // g == "Aww"
 
 ```
 
@@ -40,10 +40,19 @@ mapping over collections.
 Notes
 =====
 
-There's some distinction between typed and untyped Optionals and, particularly,
-`Absent`s. I tried to make `Absent`s as type-agnostic as possible, but
-there are cases where an `Absent` does need a type (particularly around mapping
-and flat mapping, as they require source and destination types). All `Absent`s,
-whether typed or untyped, are considered the same for `Equals`, and there is an
-implicit conversion from `Absent` to `Absent<T>`, normally triggered by
-specifying a type in a lambda (again, see the mapping tests for an example).
+The base interface is IOptional, which simply requires an implementer to
+indicate if it `IsPresent`. The basic `Absent` type implements this interface.
+
+The more useful interface is `IOptional<T>`, which extends `IOptional` and adds
+a `Value` property, and `Map`, `FlatMap`, and `Match` methods. `Absent<T>` and
+`Concrete<T>` implement this.
+
+The `Optional` class provides convience methods - `Of<T>` and `AbsentOf<T>` -
+and a property `Absent`.
+
+There is a distinction between a typed and untyped `Absent` - I would have
+preferred for them to be completely untyped, but C#'s type system requires them
+to have types in order for `Map` and `FlatMap` to work. There is an
+implicit conversion available from `Absent` to `Absent<T>` - you can see how
+this plays out in the Mapping tests. All `Absent`s, typed or untyped, are
+considered equal.
