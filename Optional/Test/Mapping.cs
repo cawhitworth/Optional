@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Optional
 {
@@ -51,6 +52,24 @@ namespace Optional
             var b = a.FlatMap(i => Optional.AbsentOf<int>());
 
             Assert.That(b, Is.EqualTo(Optional.Absent));
+        }
+
+        [Test]
+        public void MappingDoesNotRequireTheSameTypeOnBothSides()
+        {
+            var a = Optional.Of(1);
+            var b = a.Map(i => i.ToString());
+
+            Assert.That(b, Is.EqualTo( Optional.Of("1")));
+        }
+
+        [Test]
+        public void FlatMappingDoesNotRequireTheSameTypeOnBothSides()
+        {
+            var a = Optional.Of(1);
+            var b = a.FlatMap(i => Optional.Of( String.Format("It is {0}", i) ));
+
+            Assert.That(b, Is.EqualTo( Optional.Of("It is 1")));
         }
     }
 }
