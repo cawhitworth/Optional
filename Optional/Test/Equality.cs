@@ -15,38 +15,28 @@ namespace Optional
         }
 
         [Test]
-        public void AnOptionalIsNotEqualToAnAbsentOfTheSameType()
+        public void AnOptionalIsNotEqualToAnUntypedAbsent()
         {
             var a = Optional.Of(10);
-            var b = Optional.Absent<int>();
+            var b = Optional.Absent;
 
             Assert.That(a, Is.Not.EqualTo(b));
         }
 
         [Test]
-        public void AnOptionalIsNotEqualToAnAbsentOfAnotherType()
+        public void AnOptionalIsNotEqualToAnAbsent()
         {
             var a = Optional.Of(10);
-            var b = Optional.Absent<bool>();
-
+            var b = Optional.Absent;
 
             Assert.That(a, Is.Not.EqualTo(b));
         }
 
         [Test]
-        public void TwoAbsentsOfTheSameTypeAreEqual()
+        public void TwoAbsentAreEqual()
         {
-            var a = Optional.Absent<int>();
-            var b = Optional.Absent<int>();
-
-            Assert.That(a, Is.EqualTo(b));
-        }
-
-        [Test]
-        public void TwoAbsentsOfDifferentTypesAreEqual()
-        {
-            var a = Optional.Absent<int>();
-            var b = Optional.Absent<bool>();
+            var a = Optional.Absent;
+            var b = Optional.Absent;
 
             Assert.That(a, Is.EqualTo(b));
         }

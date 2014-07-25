@@ -15,7 +15,7 @@ namespace Optional
         [Test]
         public void AnAbsentIsNotPresent()
         {
-            var a = Optional.Absent();
+            var a = Optional.Absent;
             Assert.That(a.IsPresent, Is.False);
         }
     }

@@ -1,68 +1,37 @@
-﻿using System;
-
-namespace Optional
+﻿namespace Optional
 {
-    class Optional<T> : IOptional<T>
-    {
-        private T v;
-
-        public Optional(T v)
-        {
-            this.v = v;
-        }
-
-        public T Value { get { return v; } }
-
-        public IOptional<U> Map<U>(Func<T, U> action)
-        {
-            if (IsPresent)
-            {
-                return Optional.Of(action(Value));
-            }
-            else
-            {
-                return Optional.Absent<U>();
-            }
-        }
-
-        public bool IsPresent { get { return true; }}
-
-        public bool Equals(IOptional<T> other)
-        {
-            if (other.IsPresent)
-            {
-                return other.Value.Equals(Value);
-            }
-
-            return false;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is IOptional<T>)
-            {
-                return Equals(obj as IOptional<T>);
-            }
-
-            return false;
-        }
-    }
-
+    /// <summary>
+    /// Helper class for constructing Optionals
+    /// </summary>
     class Optional
     {
-        private static IOptional<object> absent = new Absent<object>();
+        private static Absent absent = new Absent();
 
-        public static IOptional<T> Of<T>(T t)
+        /// <summary>
+        /// Construct a Concrete Optional of type T
+        /// </summary>
+        /// <typeparam name="T">Type of Optional</typeparam>
+        /// <param name="v">Value</param>
+        /// <returns>The constructed Concrete</returns>
+        public static IOptional<T> Of<T>(T v)
         {
-            return new Optional<T>(t);
+            return new Concrete<T>(v);
         }
 
-        public static IOptional<T> Absent<T>()
+        /// <summary>
+        /// An untyped Absent
+        /// </summary>
+        public static Absent Absent
         {
-            return new Absent<T>();
+            get { return absent; }
         }
 
-        public static IOptional<object> Absent()
+        /// <summary>
+        /// A typed Absent
+        /// </summary>
+        /// <typeparam name="T">Type of Absent</typeparam>
+        /// <returns>An Absent of type T</returns>
+        public static Absent<T> AbsentOf<T>()
         {
             return absent;
         }
