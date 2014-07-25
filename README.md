@@ -13,14 +13,24 @@ Use
 var a = Optional.Of(10);
 var b = Optional.Absent;
 
-Console.WriteLine(a.IsPresent); // true
-Console.WriteLine(b.IsPresent); // false
+a.IsPresent;                        // true
+b.IsPresent;                        // false
 
-var c = a.Map( i => i * 2 );        // c = Optional.Of(20)
-var d = b.Map( (int i) => i * 2) ;  // d = Optional.Absent
+var c = a.Map( i => i * 2 );        // c == Optional.Of(20)
+var d = b.Map( (int i) => i * 2) ;  // d == Optional.Absent (Optional.AbsentOf<int>)
 
 var e = c.FlatMap( i => Optional.Of( String.Format("It is {0}", i) );
                                     // e = Optional.Of("It is 20")
+
+var f = a.Match(
+    i => "Woot!",
+    () => "Aww"
+);                                  // f == "Woot!"
+
+var g = b.Match(
+    i => "Woot!",
+    () => "Aww"
+);                                  // g == "Aww"
 
 ```
 
