@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OptionalSharp")]
+[assembly: AssemblyTitle("OptionalSharp.Example")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OptionalSharp")]
-[assembly: AssemblyCopyright("Copyright © Chris Whitworth 2014")]
+[assembly: AssemblyProduct("OptionalSharp.Example")]
+[assembly: AssemblyCopyright("Copyright © Chris Whitworth 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3dc44ae3-73a0-4a6e-9e83-363fd68fe8c1")]
+[assembly: Guid("47eec741-be4b-4bba-8369-3d481a381dbf")]
 
 // Version information for an assembly consists of the following four values:
 //
