@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Optional
+namespace OptionSharp
 {
     /// <summary>
     /// An untyped optional that is always absent
     /// </summary>
-    class Absent : IOptional
+    public class Absent : IOptional
     {
         /// <summary>
         /// Absents are never present
@@ -29,6 +29,20 @@ namespace Optional
         public IOptional<U> Map<T, U>(Func<T, U> func)
         {
             return (Absent<U>) Optional.Absent;
+        }
+
+
+        /// <summary>
+        /// Notionally apply the function over the Absent; this is a hack to make
+        /// an Absent behave a bit like an IOptional &lt;T&gt; under some circumstances.
+        /// 
+        /// Always returns an Absent; the function is never called
+        /// </summary>
+        /// <param name="func">Function to apply - this is never called</param>
+        /// <returns>Absent &lt;T&gt;</returns>
+        public IOptional<T> MapThrough<T>(Action<T> func)
+        {
+            return (Absent<T>) Optional.Absent;
         }
 
         /// <summary>
@@ -108,7 +122,7 @@ namespace Optional
     /// An Optional that is always absent
     /// </summary>
     /// <typeparam name="T">The type that is absent</typeparam>
-    class Absent<T> : IOptional<T>
+    public class Absent<T> : IOptional<T>
     {
         /// <summary>
         /// The only way to construct a typed Absent is to construct an untyped and cast it.
@@ -148,6 +162,16 @@ namespace Optional
         public IOptional<U> Map<U>(Func<T, U> func)
         {
             return (Absent<U>) Optional.Absent;
+        }
+
+        /// <summary>
+        /// Always return an Absent - the function will never be executed
+        /// </summary>
+        /// <param name="func">The function to be mapped - never executed for an Absent</param>
+        /// <returns>An Absent &lt; T &gt;</returns>
+        public IOptional<T> MapThrough(Action<T> func)
+        {
+            return (Absent<T>) Optional.Absent;
         }
 
         /// <summary>

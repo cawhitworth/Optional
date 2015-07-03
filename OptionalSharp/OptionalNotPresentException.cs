@@ -1,6 +1,6 @@
 using System;
 
-namespace Optional
+namespace OptionSharp
 {
     /// <summary>
     /// Exception thrown when trying to retrieve the Value of an Optional with no Value

@@ -1,11 +1,11 @@
 using System;
 
-namespace Optional
+namespace OptionSharp
 {
     /// <summary>
     /// A base interface for anything that is optional.
     /// </summary>
-    interface IOptional
+    public interface IOptional
     {
         /// <summary>
         /// Indicates whether the IOptional has a value or not
@@ -18,7 +18,7 @@ namespace Optional
     /// Interface for a typed optional
     /// </summary>
     /// <typeparam name="T">The type of the optional value</typeparam>
-    interface IOptional<out T> : IOptional
+    public interface IOptional<out T> : IOptional
     {
         /// <summary>
         /// Retrieve the optional value
@@ -35,6 +35,13 @@ namespace Optional
         /// <param name="func">The function to be mapped</param>
         /// <returns>An Optional containing the result or an Absent.</returns>
         IOptional<U> Map<U>(Func<T, U> func);
+
+        /// <summary>
+        /// Map a function with no return value over the value if we have one, and return this Optional unchanged
+        /// </summary>
+        /// <param name="func">The function to be mapped</param>
+        /// <returns>this</returns>
+        IOptional<T> MapThrough(Action<T> func);
 
         /// <summary>
         /// Map a function over the value and return an Optional of the result

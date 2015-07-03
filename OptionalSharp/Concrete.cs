@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Optional
+namespace OptionSharp
 {
     /// <summary>
     /// An Optional that has a value
     /// </summary>
     /// <typeparam name="T">The type of the value</typeparam>
-    class Concrete<T> : IOptional<T>
+    public class Concrete<T> : IOptional<T>
     {
         private readonly T _value;
 
@@ -29,6 +29,17 @@ namespace Optional
         public IOptional<U> Map<U>(Func<T, U> func)
         {
             return Optional.Of(func(Value));
+        }
+
+        /// <summary>
+        /// Map a function with no return value over the value if we have one, and return this Optional unchanged
+        /// </summary>
+        /// <param name="func">The function to be mapped</param>
+        /// <returns>this</returns>
+        public IOptional<T> MapThrough(Action<T> func)
+        {
+            func(Value);
+            return this;
         }
 
         /// <summary>

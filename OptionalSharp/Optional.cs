@@ -1,9 +1,9 @@
-﻿namespace Optional
+﻿namespace OptionSharp
 {
     /// <summary>
     /// Helper class for constructing Optionals
     /// </summary>
-    class Optional
+    public class Optional
     {
         private static Absent absent = new Absent();
 

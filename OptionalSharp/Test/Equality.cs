@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Optional
+namespace OptionSharp.Net
 {
     public class Equality
     {

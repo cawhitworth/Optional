@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Optional
+namespace OptionSharp.Net
 {
     public class Mapping
     {
@@ -70,6 +70,44 @@ namespace Optional
             var b = a.FlatMap(i => Optional.Of( String.Format("It is {0}", i) ));
 
             Assert.That(b, Is.EqualTo( Optional.Of("It is 1")));
+        }
+
+        [Test]
+        public void MapThroughReturnsTheSameOptional()
+        {
+            var a = Optional.Of(1);
+            var b = a.MapThrough(i => { });
+            Assert.That(b, Is.EqualTo(a));
+        }
+
+        [Test]
+        public void MapThroughPassesValueIntoFunction()
+        {
+            var value = 1;
+            var pass = false;
+            var a = Optional.Of(value);
+            a.MapThrough(i =>
+            {
+                Assert.That(i, Is.EqualTo(value));
+                pass = true;
+            });
+            Assert.That(pass, Is.True, "MapThrough function was not called");
+        }
+
+        [Test]
+        public void MapThroughOfAbsentReturnsAbsent()
+        {
+            var a = Optional.AbsentOf<int>();
+            var b = a.MapThrough(i => { });
+
+            Assert.That(b, Is.EqualTo(Optional.Absent));
+        }
+
+        [Test]
+        public void MapThroughOfAbsentDoesNotCallFunction()
+        {
+            var a = Optional.AbsentOf<int>();
+            var b = a.MapThrough(i => { Assert.Fail("This should never be called"); });
         }
     }
 }
