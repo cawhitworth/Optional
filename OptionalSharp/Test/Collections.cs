@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using OptionSharp;
 
-namespace OptionSharp.Net
+namespace OptionalSharp.Test
 {
     public class Collections
     {
